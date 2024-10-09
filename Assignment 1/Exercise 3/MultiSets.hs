@@ -69,18 +69,18 @@ subeq (MS []) set = True
 subeq (MS ((x,y):xs)) set = (occs set x >= y) && subeq (MS xs) set
 
 {-
-Function that given a multiset, an element and its multiplicity returns the multiset obtained by adding the element to the multiset;
+Function that given a multiset, an element and a number returns the multiset obtained by adding the element to the multiset with the given number of occurrences;
 -}
-addMultiple :: Eq a => MSet a -> a -> Int -> MSet a
-addMultiple (MS []) x y = MS [(x, y)]
-addMultiple (MS((x,y) : xs)) k v = if x == k then MS ((x, y + v) : xs) else MS ((x, y) : elemsOccs (addMultiple (MS xs) k v))
+addMerge :: Eq a => MSet a -> a -> Int -> MSet a
+addMerge (MS []) x y = MS [(x, y)]
+addMerge (MS((x,y) : xs)) k v = if x == k then MS ((x, y + v) : xs) else MS ((x, y) : elemsOccs (addMerge (MS xs) k v))
 
 {-
 Function that given two multisets returns the multiset obtained by the union of the two multisets;
 -}
 union :: Eq a => MSet a -> MSet a -> MSet a
 union (MS[]) mset = mset
-union (MS((x, y):xs)) mset = union (MS xs) (addMultiple mset x y)
+union (MS((x, y):xs)) mset = union (MS xs) (addMerge mset x y)
 
 {-
 

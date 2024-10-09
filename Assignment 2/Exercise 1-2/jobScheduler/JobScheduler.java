@@ -43,7 +43,6 @@ public abstract class JobScheduler <K, V> {
             map.get(pair.getKey()).add(pair.getValue());
         });
         return map.entrySet().stream().map(e -> new Pair<>(e.getKey(), e.getValue()));
-
     }
 
     // Hot spot: Method to output the results

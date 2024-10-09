@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 public class XMLSerialization {
     

@@ -5,7 +5,7 @@
 package apexercise.assignment_2;
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 @XMLable
 public class Student {

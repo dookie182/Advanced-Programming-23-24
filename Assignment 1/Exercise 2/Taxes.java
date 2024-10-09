@@ -6,7 +6,7 @@ package apexercise.assignment_2;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 public class Taxes {
     private int matricola;

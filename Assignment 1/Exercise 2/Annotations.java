@@ -6,18 +6,13 @@ package apexercise.assignment_2;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-/**
- *
- * @author paololanza
- */
 
 @Retention(RetentionPolicy.RUNTIME)
 @interface XMLfield{

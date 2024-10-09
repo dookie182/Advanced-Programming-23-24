@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 public class XMLSerializer {
     
@@ -31,21 +31,21 @@ public class XMLSerializer {
                     // Iteration on object serializable fields
                     for (Field field : objClass.getDeclaredFields()) {
                         if (field.isAnnotationPresent(XMLfield.class)) {
-                            field.setAccessible(true);  // Necessario se il campo è privato
+                            field.setAccessible(true);  
                             
                             XMLfield xmlField = field.getAnnotation(XMLfield.class);
                             String fieldName = xmlField.name().isEmpty() ? field.getName() : xmlField.name();
                             String fieldType = xmlField.type();
                             
                             writer.write("  <" + fieldName + " type=\"" + fieldType + "\">");
-                            writer.write(String.valueOf(field.get(obj)));  // Scrive il valore del campo
+                            writer.write(String.valueOf(field.get(obj))); 
                             writer.write("</" + fieldName + ">\n");
                         }
                     }
 
                     writer.write("</" + objClass.getSimpleName() + ">\n");
                 } else {
-                    // Classe non serializzabile
+                    // Class is not serializable
                     writer.write("<notXMLable />\n");
                 }
             }
