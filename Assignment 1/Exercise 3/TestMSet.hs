@@ -4,17 +4,21 @@ import Data.List (sort)
 import System.IO
 
 {-
-Define a function to compute the "ciao" of a word
+Function that given a list of strings, returns the list of ciao strings ("characters in alphabetical order");
 -}
 ciao :: [String] -> [String]
-ciao = map sort
+ciao = map sort 
 
+{-
+Function that given a list of words and an empty MSet, adds the words to the MSet;
+-}
 addWords :: [[Char]] -> MSet [Char] -> MSet [Char]
 addWords words (MS mset) =
     foldr (flip MultiSets.add) (MS mset) words
 
 {- 
-Function to read a file and build an MSet of "ciao" words with their multiplicities
+Function that given a String representing the path to the file, 
+reads the file and returns the MSet of the words in the file with their multiplicity;
 -}
 readMSet :: String -> IO(MSet [Char])
 readMSet pathfile = do
@@ -25,9 +29,9 @@ readMSet pathfile = do
     return full_mset
 
 {- 
-Function to write an MSet to a file, each element with its multiplicity
+Function that given a MSet and a path to the output file, writes the MSet to a file;
 -}
-writeMSet :: Show a => MSet a -> FilePath -> IO ()
+writeMSet :: Show a => MSet a -> [Char] -> IO ()
 writeMSet (MS xs) fileName = do
     let formatted = unlines $ map (\(v, n) -> show v ++ " - " ++ show n) xs
     writeFile fileName formatted
@@ -46,7 +50,9 @@ main = do
     -- Check if m1 and m4 are equal
     if m1 == m4
         then putStrLn "Multisets m1 and m4 are equal"
-        else putStrLn "Multisets m1 and m4 are not equal, but they have the same elements"
+        else if elems m1 == elems m4 
+            then putStrLn "Multisets m1 and m4 are not equal, but they have the same elements"
+            else putStrLn "Multisets m1 and m4 are not equal, and they have different elements"
 
     -- Check if m1 is equal to the union of m2 and m3
     if m1 == union m2 m3
