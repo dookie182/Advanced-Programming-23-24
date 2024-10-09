@@ -8,6 +8,11 @@ import javax.swing.JLabel;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ *
+ * @author Francesco Kotopulos De Angelis
+ */
+
 public class EightController extends JLabel implements VetoableChangeListener, PropertyChangeListener {
     // Hole position
     private int currentHole;

@@ -17,7 +17,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 public class EightTile extends JButton implements Serializable {    
     // Label of the tile

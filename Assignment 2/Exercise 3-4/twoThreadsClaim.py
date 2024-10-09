@@ -78,9 +78,11 @@ def test(iter, fun, args):
     result_8_threads = bench(n_threads=8, seq_iter=2, iter=iter)(fun)(*args)
     results.append(result_8_threads)
 
+    # Write results to output file
+    outputFile = open("./output.txt", "a")
     for result in results:
-        print(result)
-
+        outputFile.write(str(result) + "\n")
+    outputFile.close()
 
 # Example of running the test function with different workloads
 if __name__ == "__main__":
@@ -89,3 +91,12 @@ if __name__ == "__main__":
 
     # Test on grezzo (CPU Bound) function with iter=3
     test(iter=3, fun=grezzo, args=(10,))
+
+# Results of experimentation:
+# As expected, we can see from the results that the execution of the I/O-bound function (just_wait) gains the advantage of using multiple threads.
+# On the other hand, the execution of the CPU-bound function (grezzo) is slower when using multiple threads, and we do not gain any advantage from using threads.
+# This is due to the Python GIL (Global Interpreter Lock) that prevents multiple threads from executing simultaneously.
+# In particular, I/O-bound functions are able to release the GIL and allow other threads to be scheduled.
+# CPU-bound functions, however, cannot release the GIL, so the threads are not able to be scheduled efficiently simultaneously.
+# Another problem with CPU-bound functions is the signaling overhead because every 100 ticks, the Python GIL locks a mutex and signals
+# on a condition variable or semaphore where other threads are waiting. This triggers many system calls that lead to significant performance degradation.

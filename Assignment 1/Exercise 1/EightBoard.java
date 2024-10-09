@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Koto
+ * @author Francesco Kotopulos De Angelis
  */
 public class EightBoard extends javax.swing.JFrame implements PropertyChangeListener {
     
