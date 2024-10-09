@@ -83,8 +83,20 @@ union (MS[]) mset = mset
 union (MS((x, y):xs)) mset = union (MS xs) (addMultiple mset x y)
 
 {-
-Function that given a function and a multiset returns the multiset obtained by applying the function to all the elements of the multiset;
+
+It's not possibile to define a Functor instance for MSet because applying the map function 
+it's not guaranteed that the multiplicity of the elements will be preserved. 
+We can think to a simple example of a function that maps each element of the multiset to a single key,
+in this case the multiplicity of the elements will be lost and we are violating the MSet properties.
+In fact, each element of an MSet should be present only once in the multiset with a multiplicity greater than 0 by definition.
+
+For this reason we have to define Eq b in the signature of the function mapMSet and so fmap signature it's not respected.
+
+Function that given a function and a multiset returns the union of the Mset and an empty MSet 
+with the elements of the first multiset mapped by the function. The union operations guarantees that the multiplicity of the elements is preserved 
+and keys are unique in the Mset.
 -}
-mapMSet :: (a -> b) -> MSet a -> MSet b
+mapMSet ::Eq b => (a -> b) -> MSet a -> MSet b
 mapMSet f (MS []) = MS []
-mapMSet f (MS ((x,y):xs)) = MS ((f x,y) : elemsOccs (mapMSet f (MS xs)))
+mapMSet f (MS xs) = MS (map (\(x, n) -> (f x, n)) xs) `union` MS []
+
